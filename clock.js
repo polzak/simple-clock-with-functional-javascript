@@ -30,12 +30,12 @@ const civilianHours = clockTime => (
 
 const prependZero = n => (n >= 10) ? "" + n : "0" + n;
 
-const doubleDigits = clockTime => (
+const doubleDigits = handler => clockTime => (
     {
     ...clockTime,
-    hours: prependZero(clockTime.hours),
-    minutes: prependZero(clockTime.minutes),
-    seconds: prependZero(clockTime.seconds)
+    hours: handler(clockTime.hours),
+    minutes: handler(clockTime.minutes),
+    seconds: handler(clockTime.seconds)
     }
 )
 
@@ -52,11 +52,12 @@ const compose = (...fns) => (arg) =>
 const startTicking = () => 
     setInterval(
         compose(
+            clear,
             getCurrentTime, 
             abstractClockTime, 
             appendAMPM,
             civilianHours,
-            doubleDigits,
+            doubleDigits(prependZero),
             formatter,
             display(log)), 
         oneSec());
