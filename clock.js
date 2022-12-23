@@ -16,14 +16,23 @@ const getClockTime = () => {
     var date = getCurrentTime();    
 
     // chaining functions
-    var time = civilianHours(appendAMPM(abstractClockTime(date)))
+    // var time = civilianHours(appendAMPM(abstractClockTime(date)))
 
+    // use compose functions instead of chaning functions
+    var time = compose(date, abstractClockTime, appendAMPM, civilianHours);
+    
     time.hours = prependZero(time.hours);
     time.minutes = prependZero(time.minutes);
     time.seconds = prependZero(time.seconds);
 
     return `${time.hours}:${time.minutes}:${time.seconds} ${time.ampm}`
 }
+
+// the basic form of compose function
+function compose(...fns) {
+    return fns[3](fns[2](fns[1](fns[0])));
+}
+
 
 const abstractClockTime = date => (
     {
