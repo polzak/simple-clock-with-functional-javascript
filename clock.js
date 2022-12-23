@@ -9,7 +9,13 @@ function logClockTime() {
 
 function getClockTime() {
     var date = new Date();
-    var time = ""
+    
+    var time = {
+        hours: date.getHours(),
+        minutes: date.getMinutes(),
+        seconds: date.getSeconds(),
+        ampm: "AM"
+    }
 
-    return date;
+    return time;
 }
