@@ -17,5 +17,12 @@ function getClockTime() {
         ampm: "AM"
     }
 
+    if (time.hours > 12) {
+        time.ampm = "PM";
+        time.hours = time.hours - 12;
+    } else if (time.hours > 11) {
+        time.ampm = "PM"
+    }
+
     return time;
 }
