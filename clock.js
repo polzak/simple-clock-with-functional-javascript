@@ -28,7 +28,7 @@ function getClockTime() {
     time.minutes = prependZero(time.minutes);
     time.seconds = prependZero(time.seconds);
 
-    return time;
+    return `${time.hours}:${time.minutes}:${time.seconds} ${time.ampm}`
 }
 
 const prependZero = n => (n >= 10) ? "" + n : "0" + n;
