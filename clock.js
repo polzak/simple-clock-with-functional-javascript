@@ -30,12 +30,21 @@ const civilianHours = clockTime => (
 
 const prependZero = n => (n >= 10) ? "" + n : "0" + n;
 
-const doubleDigits = clockTime => ({
+const doubleDigits = clockTime => (
+    {
     ...clockTime,
     hours: prependZero(clockTime.hours),
     minutes: prependZero(clockTime.minutes),
     seconds: prependZero(clockTime.seconds)
-})
+    }
+)
+
+const formatter = clockTime => 
+    `${clockTime.hours}:${clockTime.minutes}:${clockTime.seconds} ${clockTime.ampm}`
+
+// you can display the time with any other method than console.log, with this higher order function.
+const display = displayHandler => formattedTime => displayHandler(formattedTime);
+
 
 const compose = (...fns) => (arg) =>
         fns.reduce((acc, f) => f(acc), arg);
@@ -48,7 +57,8 @@ const startTicking = () =>
             appendAMPM,
             civilianHours,
             doubleDigits,
-            log), 
+            formatter,
+            display(log)), 
         oneSec());
         
 
