@@ -6,34 +6,35 @@ const oneSec = () => 1000;
 
 const getCurrentTime = () => new Date();
 
-const logClockTime = () => {
-    var time = getClockTime();
-    // clear();
-    log(time);
-}
+// const logClockTime = () => {
+//     var time = getClockTime();
+//     // clear();
+//     log(time);
+// }
 
-const getClockTime = () => {
-    var date = getCurrentTime();    
+// const getClockTime = () => {
+    // var date = getCurrentTime();    
 
     // chaining functions
     // var time = civilianHours(appendAMPM(abstractClockTime(date)))
 
     // use a compose function, as a higher order function, instead of chaning functions
-    var time = compose(abstractClockTime, appendAMPM, civilianHours)(date);
+    // var time = compose(abstractClockTime, appendAMPM, civilianHours)(date);
     
-    time.hours = prependZero(time.hours);
-    time.minutes = prependZero(time.minutes);
-    time.seconds = prependZero(time.seconds);
+    // time.hours = prependZero(time.hours);
+    // time.minutes = prependZero(time.minutes);
+    // time.seconds = prependZero(time.seconds);
 
-    return `${time.hours}:${time.minutes}:${time.seconds} ${time.ampm}`
-}
+    // compose(getCurrentTime, abstractClockTime, appendAMPM, civilianHours);
+
+    //return `${time.hours}:${time.minutes}:${time.seconds} ${time.ampm}`
+// }
 
 // an improved version of the compose function
 // the form of a higher order function
 
 const compose = (...fns) =>
     (arg) =>
-        // fns[2](fns[1](fns[0](arg)));
         fns.reduce((acc, f) => f(acc), arg);
 
 // function compose(...fns) {
@@ -68,6 +69,8 @@ const civilianHours = clockTime => (
 const prependZero = n => (n >= 10) ? "" + n : "0" + n;
 
 const startTicking = () => 
-    setInterval(logClockTime, oneSec());
+    setInterval(
+        compose(getCurrentTime, abstractClockTime, appendAMPM, civilianHours, log), 
+        oneSec());
     
 startTicking();
