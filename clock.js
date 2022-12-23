@@ -24,5 +24,11 @@ function getClockTime() {
         time.ampm = "PM"
     }
 
+    time.hours = prependZero(time.hours);
+    time.minutes = prependZero(time.minutes);
+    time.seconds = prependZero(time.seconds);
+
     return time;
 }
+
+const prependZero = n => (n >= 10) ? "" + n : "0" + n;
