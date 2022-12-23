@@ -1,14 +1,19 @@
-setInterval(logClockTime, 1000);
+const clear = () => console.clear();
 
-function logClockTime() {
+const log = message => console.log(message);
+
+const oneSec = () => 1000;
+
+const getCurrentTime = () => new Date();
+
+const logClockTime = () => {
     var time = getClockTime();
-
-    console.clear();
-    console.log(time);
+    clear();
+    log(time);
 }
 
-function getClockTime() {
-    var date = new Date();
+const getClockTime = () => {
+    var date = getCurrentTime()
     
     var time = {
         hours: date.getHours(),
@@ -32,3 +37,8 @@ function getClockTime() {
 }
 
 const prependZero = n => (n >= 10) ? "" + n : "0" + n;
+
+const startTicking = () => 
+    setInterval(logClockTime, oneSec());
+    
+startTicking();
