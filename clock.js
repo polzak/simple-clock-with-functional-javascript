@@ -18,8 +18,8 @@ const getClockTime = () => {
     // chaining functions
     // var time = civilianHours(appendAMPM(abstractClockTime(date)))
 
-    // use compose functions instead of chaning functions
-    var time = compose(date, abstractClockTime, appendAMPM, civilianHours);
+    // use a compose function, as a higher order function, instead of chaning functions
+    var time = compose(abstractClockTime, appendAMPM, civilianHours)(date);
     
     time.hours = prependZero(time.hours);
     time.minutes = prependZero(time.minutes);
@@ -28,9 +28,12 @@ const getClockTime = () => {
     return `${time.hours}:${time.minutes}:${time.seconds} ${time.ampm}`
 }
 
-// the basic form of compose function
+// an improved version of the compose function
+// the form of a higher order function
 function compose(...fns) {
-    return fns[3](fns[2](fns[1](fns[0])));
+    return function tripleFunctions(arg) {
+        return fns[2](fns[1](fns[0](arg)));    
+    }
 }
 
 
