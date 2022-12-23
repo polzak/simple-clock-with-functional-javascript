@@ -33,8 +33,8 @@ const getClockTime = () => {
 
 const compose = (...fns) =>
     (arg) =>
-        fns[2](fns[1](fns[0](arg)));
-
+        // fns[2](fns[1](fns[0](arg)));
+        fns.reduce((acc, f) => f(acc), arg);
 
 // function compose(...fns) {
 //     return function tripleFunctions(arg) {
