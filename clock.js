@@ -14,14 +14,9 @@ const logClockTime = () => {
 
 const getClockTime = () => {
     var date = getCurrentTime();    
-    var time = abstractClockTime(date);
-    console.log(time)
 
-    time = appendAMPM(time);
-    console.log(time)
-
-    time = civilianHours(time);
-    console.log(time)
+    // chaining functions
+    var time = civilianHours(appendAMPM(abstractClockTime(date)))
 
     time.hours = prependZero(time.hours);
     time.minutes = prependZero(time.minutes);
