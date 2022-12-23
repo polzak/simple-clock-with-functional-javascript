@@ -30,11 +30,17 @@ const getClockTime = () => {
 
 // an improved version of the compose function
 // the form of a higher order function
-function compose(...fns) {
-    return function tripleFunctions(arg) {
-        return fns[2](fns[1](fns[0](arg)));    
-    }
-}
+
+const compose = (...fns) =>
+    (arg) =>
+        fns[2](fns[1](fns[0](arg)));
+
+
+// function compose(...fns) {
+//     return function tripleFunctions(arg) {
+//         return fns[2](fns[1](fns[0](arg)));    
+//     }
+// }
 
 
 const abstractClockTime = date => (
