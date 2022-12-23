@@ -8,26 +8,20 @@ const getCurrentTime = () => new Date();
 
 const logClockTime = () => {
     var time = getClockTime();
-    clear();
+    // clear();
     log(time);
 }
 
 const getClockTime = () => {
-    var date = getCurrentTime()
-    
-    var time = {
-        hours: date.getHours(),
-        minutes: date.getMinutes(),
-        seconds: date.getSeconds(),
-        ampm: "AM"
-    }
+    var date = getCurrentTime();    
+    var time = abstractClockTime(date);
+    console.log(time)
 
-    if (time.hours > 12) {
-        time.ampm = "PM";
-        time.hours = time.hours - 12;
-    } else if (time.hours > 11) {
-        time.ampm = "PM"
-    }
+    time = appendAMPM(time);
+    console.log(time)
+
+    time = civilianHours(time);
+    console.log(time)
 
     time.hours = prependZero(time.hours);
     time.minutes = prependZero(time.minutes);
@@ -35,6 +29,28 @@ const getClockTime = () => {
 
     return `${time.hours}:${time.minutes}:${time.seconds} ${time.ampm}`
 }
+
+const abstractClockTime = date => (
+    {
+        hours: date.getHours(),
+        minutes: date.getMinutes(),
+        seconds: date.getSeconds()
+    }
+)
+
+const appendAMPM = clockTime => (
+    {
+        ...clockTime,
+        ampm: (clockTime.hours <= 12) ? "AM" : "PM"
+    }
+)
+
+const civilianHours = clockTime => (
+    {
+        ...clockTime,
+        hours: (clockTime.hours <= 12) ? clockTime.hours : clockTime.hours - 12
+    }
+)
 
 const prependZero = n => (n >= 10) ? "" + n : "0" + n;
 
